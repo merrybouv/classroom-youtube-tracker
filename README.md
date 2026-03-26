@@ -9,7 +9,7 @@
 
 ## What You Need Before Starting
 
-- [ ] Your child's YouTube watch history file (see guide below)
+- [ ] Your child's YouTube watch history file
 - [ ] A free YouTube Data API key (one-time setup, takes ~10 minutes)
 - [ ] Python installed on your computer
 - [ ] About 30–60 minutes the first time
