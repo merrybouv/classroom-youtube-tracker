@@ -4,7 +4,6 @@
 
 **Who this is for:** Parent advocates and researchers. You do not need to be a programmer. These instructions assume you have [Claude](https://claude.ai) open in another tab to help you if anything goes wrong.
 
-**Developed by:** NET Lab, Inc.
 
 ---
 
@@ -263,4 +262,4 @@ If you use this tool in research or advocacy, please cite:
 
 ## Questions or Issues
 
-Open a GitHub Issue or contact NET Lab at [netlabinc.org](https://netlabinc.org).
+Open a GitHub Issue or contact NET Lab at merrybouv@proton.me
