@@ -1,0 +1,27 @@
+# Environment / credentials — never commit these
+.env
+*.env
+
+# Data files — these contain personal information
+*.json
+*.pdf
+*.html
+*.csv
+*.xlsx
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# macOS
+.DS_Store
+
+# Outputs
+yt_events.csv
+yt_daily.csv
+yt_report.txt
+yt_metadata*.csv
