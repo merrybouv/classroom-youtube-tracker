@@ -28,8 +28,6 @@ You need one of these files from your child's school Google account:
 | `watch-history.html` | Google Takeout → default format | ✅ Good |
 | YouTube history PDF | Print the YouTube History page to PDF | ⚠️ Backup only |
 
-**For step-by-step instructions** on how to get any of these files, see the parent guide in this repository: [`PARENT_GUIDE.pdf`](./PARENT_GUIDE.pdf)
-
 ---
 
 ## Step 1 — Install Python
