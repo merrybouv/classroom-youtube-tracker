@@ -233,7 +233,9 @@ Google Takeout only records *when* a video was opened — not how long it was wa
 > - How much time was left in the school day
 > - How long the video actually is
 
-This is conservative on purpose. If a student opened a 10-minute video and then opened another video 45 minutes later, we don't know if they watched for 2 minutes or 44 minutes — so we exclude that entry rather than guess.
+This is conservative on purpose. If a student opened a 10-minute video and the next video wasn't opened for 45 minutes, we count 10 minutes — the video's own length is the natural cap. If a student opened a 5-minute video but the next video was opened in a minute later, we count 1 minute. If a student opened a 20-minute video with only 5 minutes left in the school day, we count 5 minutes.
+
+**A note on unavailable videos:** A portion of videos in any watch history will be unavailable — deleted, made private, or removed by YouTube since they were watched. These videos have no duration data. For these entries, we use the gap to the next video as the elapsed time, capped at 1 minute. This cap is informed by case study data showing a median video duration of 26 seconds and 83% of videos under 1 minute — the cap may slightly overestimate these specific entries, but unavailable videos represent a small fraction of total elapsed time.
 
 **What this data can and cannot say:**
 - ✅ Minimum documented video opens during school hours
@@ -247,7 +249,7 @@ This is conservative on purpose. If a student opened a 10-minute video and then 
 ## Data & Privacy
 
 - This tool runs entirely on your own computer. No data is sent anywhere except to the YouTube API to look up video durations (by video ID only — no personal information is sent).
-- The watch history file you download contains your child's data. Store it securely and delete it when you're done.
+- The watch history file you download contains your child's data. Store it securely on your own device. Only share it if you choose to — no one can access it without your knowledge.
 - The `yt_metadata.csv` file contains video titles and channels but no personal information. It can be shared safely.
 
 ---
