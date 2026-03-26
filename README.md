@@ -141,7 +141,8 @@ python analyze.py \
   --metadata yt_metadata.csv \
   --school-start 07:00 \
   --school-end 14:30 \
-  --grade middle
+  --grade middle \
+  --timezone central
 ```
 
 **Adjust these settings for your child's school:**
@@ -153,6 +154,7 @@ python analyze.py \
 | `--school-start` | Time school starts | `08:00` |
 | `--school-end` | Time school ends | `15:00` |
 | `--grade` | Used for default times if you skip start/end | `elementary`, `middle`, or `high` |
+| `--timezone` | Your school's timezone | `eastern`, `central`, `mountain`, `pacific`, `alaska`, `hawaii` |
 | `--date-from` | Only look at dates after this | `2025-09-01` |
 | `--date-to` | Only look at dates before this | `2026-01-31` |
 
