@@ -45,7 +45,7 @@ METHOD
 
 RAPID BROWSE
 ------------
-  Defined as elapsed < 30 seconds.
+  Defined as elapsed < 60 seconds (1 minute).
   JSON/HTML: real measured gaps — reliable.
   PDF: minute-level timestamps only — rapid browse counts NOT reliable for PDF.
 
@@ -377,11 +377,11 @@ def report(df, fmt, school_start, school_end, grade, timezone, out_path):
     daily = df_s.groupby('date').agg(
         opens=('video_id', 'count'),
         elapsed_min=('elapsed_minutes', 'sum'),
-        rapid=('elapsed_minutes', lambda x: (x < 0.5).sum())
+        rapid=('elapsed_minutes', lambda x: (x < 1.0).sum())
     ).sort_values('date')
 
-    under30 = (df_s['elapsed_minutes'] < 0.5).sum()
-    under60 = (df_s['elapsed_minutes'] < 1.0).sum()
+    
+    
     w = 62
 
     lines = []
@@ -401,22 +401,22 @@ def report(df, fmt, school_start, school_end, grade, timezone, out_path):
     lines.append(f'  School-hour opens       : {school:,}  ({school/total*100:.1f}% of total)')
     lines.append(f'  Avg opens / school day  : {school/dates:.1f}')
     lines.append('')
-    lines.append('-- Rapid Browse (elapsed < 30 seconds) ' + '-' * (w - 39))
+    lines.append('-- Rapid Browse (elapsed < 60 seconds) ' + '-' * (w - 39))
     if fmt == 'PDF':
         exact_zero = (df_s['elapsed_minutes'] == 0).sum()
         dur_capped = (
             (df_s['elapsed_minutes'] > 0) &
-            (df_s['elapsed_minutes'] < 0.5) &
+            (df_s['elapsed_minutes'] < 1.0) &
             (df_s['elapsed_note'] == 'CAPPED_BY_DURATION')
         ).sum()
         lines.append('  WARNING: PDF rapid browse counts are not reliable.')
         lines.append(f'    {exact_zero:,} same-minute entries -- true gap is 0-59 sec, unmeasurable.')
-        lines.append(f'    {dur_capped:,} short video entries -- video itself was under 30 sec.')
+        lines.append(f'    {dur_capped:,} short video entries -- video itself was under 60 sec.')
         lines.append('    Use JSON or HTML export for reliable rapid-browse analysis.')
-        lines.append(f'  Under 30 sec : {under30:,}  ({under30/school*100:.1f}%) -- unreliable for PDF')
+        lines.append(f'  Under 60 sec : {under60:,}  ({under60/school*100:.1f}%) -- unreliable for PDF')
     else:
-        lines.append(f'  Under 30 sec : {under30:,}  ({under30/school*100:.1f}% of school-hour opens)')
-        lines.append(f'  Under 60 sec : {under60:,}  ({under60/school*100:.1f}% of school-hour opens)')
+        
+        
         lines.append(f'  {fmt} timestamps are precise -- these are real measured gaps.')
     lines.append('')
     lines.append('-- Elapsed Time Distribution (school hours) ' + '-' * (w - 44))
@@ -436,7 +436,7 @@ def report(df, fmt, school_start, school_end, grade, timezone, out_path):
             lines.append(f'  {str(note):<42} {count:4d}')
     lines.append('')
     lines.append('-- Per-Day Detail ' + '-' * (w - 18))
-    lines.append(f'  {"Date":<12} {"Opens":>6} {"Elapsed":>9} {"Rapid<30s":>9}')
+    lines.append(f'  {"Date":<12} {"Opens":>6} {"Elapsed":>9} {"Rapid<60s":>9}')
     lines.append(f'  {"-"*12} {"-"*6} {"-"*9} {"-"*9}')
     for d, row in daily.iterrows():
         lines.append(f'  {d:<12} {int(row["opens"]):>6} '
@@ -522,7 +522,7 @@ def main():
     df[df['in_school_hours'] & df['elapsed_minutes'].notna()].groupby('date').agg(
         opens=('video_id', 'count'),
         elapsed_minutes=('elapsed_minutes', 'sum'),
-        rapid_browse=('elapsed_minutes', lambda x: (x < 0.5).sum())
+        rapid_browse=('elapsed_minutes', lambda x: (x < 1.0).sum())
     ).to_csv(f'{out}/yt_daily.csv')
 
     report(df, fmt, school_start_str, school_end_str, grade, args.timezone,
