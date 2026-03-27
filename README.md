@@ -84,7 +84,7 @@ The analysis tool needs to look up each video's duration from YouTube. This requ
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com)
 2. Sign in with any Google account (your personal one is fine — not the school account)
-3. Click **Select a project** → **New Project** → name it anything (e.g. "NET Lab") → **Create**
+3. Click **Select a project** → **New Project** → name it anything → **Create**
 4. In the search bar at the top, search for **YouTube Data API v3**
 5. Click on it → click **Enable**
 6. Click **Credentials** in the left menu → **Create Credentials** → **API Key**
@@ -188,15 +188,15 @@ Open `yt_report.txt` in any text editor. It will show you:
   School-hour opens        : 1,447  (79.2% of total)
   Avg opens per school day : 21.0
 
-── Rapid Browse (elapsed < 30 sec) ──────────────────────
-  Rapid-browse opens       : 913  (63.1% of school-hour opens)
+── Rapid Browse (elapsed < 60 sec) ──────────────────────
+  Rapid-browse opens       : 1,175  (81.2% of school-hour opens)
 
 ── Estimated Watch Time ─────────────────────────────────
   Total elapsed hours      : 31.7
   Avg minutes per school day: 27.6
 ```
 
-**What "rapid browse" means:** A video that was opened and then closed (or skipped) within 30 seconds. This includes YouTube Shorts (which are under 30 seconds by design) as well as longer videos the student clicked away from almost immediately. Both indicate the same thing: no sustained engagement.
+**What "rapid browse" means:** A video that was opened and then closed (or skipped) within 60 seconds. This includes YouTube Shorts (which are under 60 seconds by design) as well as longer videos the student clicked away from almost immediately. Both indicate the same thing: no sustained engagement.
 
 **What "elapsed time" means:** A conservative estimate of how long each video was actually watched, calculated as the minimum of: (a) time until the next video was opened, (b) time remaining in the school day, and (c) the video's actual duration. This intentionally undercounts — it's a floor, not a ceiling.
 
@@ -233,13 +233,15 @@ Google Takeout only records *when* a video was opened — not how long it was wa
 > - How much time was left in the school day
 > - How long the video actually is
 
-This is conservative on purpose. If a student opened a 10-minute video and the next video wasn't opened for 45 minutes, we count 10 minutes — the video's own length is the natural cap. If a student opened a 5-minute video but the next video was opened in a minute later, we count 1 minute. If a student opened a 20-minute video with only 5 minutes left in the school day, we count 5 minutes.
+This is conservative on purpose. If a student opened a 10-minute video and the next video wasn't opened for 45 minutes, we count 10 minutes — the video's own length is the natural cap. If a student opened a 5-minute video but the next video was opened a minute later, we count 1 minute. If a student opened a 20-minute video with only 5 minutes left in the school day, we count 5 minutes.
 
-**A note on unavailable videos:** A portion of videos in any watch history will be unavailable — deleted, made private, or removed by YouTube since they were watched. These videos have no duration data. For these entries, we use the gap to the next video as the elapsed time, capped at 1 minute. This cap is informed by case study data showing a median video duration of 26 seconds and 83% of videos under 1 minute (the same threshold used to define rapid browse behavior) — the cap may slightly overestimate these specific entries, but unavailable videos represent a small fraction of total elapsed time.
+**A note on unavailable videos:** A portion of videos in any watch history will be unavailable — deleted, made private, or removed by YouTube since they were watched. These videos have no duration data. For these entries, we use the gap to the next video as the elapsed time, capped at 1 minute. This cap is informed by pilot data showing a median video duration of 26 seconds and 83% of videos under 1 minute. In our pilot testing, the vast majority of unavailable video entries had a naturally short gap to the next video and were unaffected by the cap. Only a small fraction of school-hour opens were actually assigned the 1-minute cap, contributing a negligible share of total elapsed time.
+
+**A note on PDF exports:** PDF timestamps are minute-level only, meaning two videos opened in the same minute both show a gap of zero seconds. For this reason, rapid browse counts are reported but flagged as unreliable for PDF data. JSON or HTML exports provide sub-second timestamps and are strongly recommended for accurate rapid browse analysis.
 
 **What this data can and cannot say:**
 - ✅ Minimum documented video opens during school hours
-- ✅ Evidence of rapid channel-surfing behavior (30-second opens)
+- ✅ Evidence of rapid channel-surfing behavior (60-second opens)
 - ✅ Conservative floor estimate of time spent on YouTube during class
 - ❌ Cannot say exactly how long each video was watched
 - ❌ Cannot say whether audio was on or whether the tab was in the background
