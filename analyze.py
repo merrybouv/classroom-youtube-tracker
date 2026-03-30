@@ -167,6 +167,7 @@ def parse_html(path, date_from, date_to, tz_name):
     }
 
     def parse_ts(text):
+        text = text.replace('\u202f', ' ')  # narrow no-break space in Google Takeout HTML
         m = re.search(r'(\w+ \d+, \d+, \d+:\d+:\d+ [AP]M)\s+([A-Z]{2,4})', text)
         if not m:
             m = re.search(r'(\w+ \d+, \d+, \d+:\d+ [AP]M)\s+([A-Z]{2,4})', text)
