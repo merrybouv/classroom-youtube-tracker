@@ -259,14 +259,17 @@ This is conservative on purpose. If a student opened a 10-minute video and the n
 ## Citation
 
 This tool is part of an ongoing research program on platform accountability in K–12 education.
-If you use this tool in research, reporting, or advocacy, please cite:
+It was developed in collaboration with a parent partner whose initial analysis and dataset motivated the creation of this method.
 
+If you use this tool in research, reporting, or advocacy, please cite:
 Bouvier, M. (2026). Classroom YouTube Tracker [Software]. NET Lab, Inc.
 https://github.com/merrybouv/classroom-youtube-tracker
 
 In addition:
 Please do not modify core measurement assumptions (e.g., elapsed-time estimation, rapid-browse thresholds) without clearly documenting those changes.
+
 If you are interested in deploying this tool at scale (e.g., through an organization, district, or platform), please reach out to coordinate. This helps ensure the methodology is used and interpreted correctly.
+For academic use, this software should be cited alongside any associated methodological publications.
 
 ---
 
