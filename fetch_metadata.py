@@ -256,7 +256,7 @@ def main():
     parser.add_argument('--existing', default=None,
                         help='Existing yt_metadata.csv to reuse (avoids repeat calls)')
     parser.add_argument('--output',   default='yt_metadata_v2.csv',
-                        help='Output CSV path (default: yt_metadata_v2.csv)')
+                        help='Output CSV path (default: yt_metadata.csv)')
     parser.add_argument('--api-key',  default=None,
                         help='YouTube Data API v3 key (or set YOUTUBE_API_KEY env var)')
     args = parser.parse_args()
