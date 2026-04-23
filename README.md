@@ -127,8 +127,7 @@ Bouvier, M. (2026). *Classroom YouTube Tracker* [Software]. NET Lab, Inc.
 https://github.com/merrybouv/classroom-youtube-tracker
 
 Please do not modify core measurement assumptions without documenting the changes. 
-If you are deploying this tool at scale or using it in academic work, please reach 
-out to coordinate.
+Commercial use of this tool or methodology requires a separate license. Contact classroomtechtransparency@gmail.com to inquire.
 
 ---
 
